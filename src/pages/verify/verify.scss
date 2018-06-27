@@ -1,0 +1,152 @@
+page-verify {
+    .header {
+        .toolbar {
+            height: 180px;
+            img {
+                height: 100px;
+                width: auto;
+            }
+        }
+    }
+    .fixedContent {
+        height: 100%;
+        width: 100%;
+        min-height: 200px;
+        top: 0;
+        z-index: 1200;
+        position: absolute;
+        .inContent {
+            margin: 10px;
+            border-radius: 7px;
+            box-shadow: 0 2px 10px 1px rgba(0,0,0,0.33);
+            width: calc(100% - 20px);
+            background: #fff;
+            padding: 10px 5px;
+            .hBlue {
+                color: #1B76BA;
+                text-align: center;
+                font-family: Cairo;
+                font-size: 110%;
+            }
+            .hGray {
+                color: #707070;
+                text-align: center;
+                font-family: Cairo;
+                padding: 0 5px;
+                font-size: 130%;
+            }
+            .phoneForm {
+                padding: 20px 20px 10px 20px;
+                .phoneInputs {
+                    width: 100%;
+                    height: 40px;
+                    line-height: 40px;
+                    vertical-align: middle;
+                    text-align: center;
+                    .pNumber {
+                        width: 100%;
+                        max-width: 200px;
+                        margin: 0 auto;
+                        border-bottom: 1px #707070 solid;
+                        height: 40px;
+                        overflow: hidden;
+                        padding: 0 7px;
+                        input {
+                            max-width: 200px;
+                            border: none;
+                            text-align: center;
+                            font-family: Cairo;
+                            font-size: 110%;
+                            color: #1B76BA;
+                        }
+                    }
+                }
+                .formConfirm {
+                    text-align: center;
+                    padding-top: 20px;
+                    .btn {
+                        padding: 2px;
+                        margin-top: 0px;
+                        width: 200px;
+                    }
+                }
+                .formTerms {
+                    margin: 0 auto;
+                    margin-top: 10px;
+                    margin-bottom: 20px;
+                    max-width: 260px;
+                    span {
+                        color: #707070;
+                        &:before {
+                            content: ' ';
+                            height: 14px;
+                            width: 14px;
+                            background-color: #707070;
+                            display: inline-block;
+                            margin-left: 6px;
+                            border-radius: 50%;
+                        }
+                    }
+                    a {
+                        color: #1B76BB;
+                    }
+                    .cbCircle {
+                        float: right;
+                        margin-bottom: 25px;
+                        &:before {
+                            content: ' ';
+                            float: left;
+                            margin-right: 20px;
+                            height: 25px;
+                            width: 25px;
+                            border: 2px #39B44C solid;
+                            border-radius: 50%;
+                            transition: 0.3s linear;
+                        }
+                    }
+                    .cbCheck {
+                        position: absolute;
+                        z-index: -1;
+                        &:checked + .cbCircle:before {
+                            background-color: #39B44C;
+                            border-color: #28918B;
+                            box-shadow: inset 0 0 0 3px #fff;
+                        }
+                    }
+                }
+            }
+        }
+        .outContent {
+            display: block;
+            width: 100%;
+            padding-top: 15px;
+            .langList {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                padding-right: 20px;
+                li {
+                    color: #707070;
+                    float: right;
+                    width: 30%;
+                    font-weight: 700;
+                    text-align: right;
+                    &.active {
+                        color: #39B44C;
+                    }
+                    img {
+                        float: right;
+                        margin-top: 3px;
+                        span {
+                            float: left;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .scroll-content {
+        margin-top: 150px !important;
+        background-color: #fff !important;
+    }
+}

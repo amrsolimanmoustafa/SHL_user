@@ -1,18 +1,90 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+    <button ion-button menuToggle="left" left>
+      <ion-icon class="header-icon" name="md-cog" color="light"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>
+      <img src="assets/imgs/header-logo.png" width="40">
+    </ion-title>
+    <button ion-button menuToggle="right" right>
+      <ion-icon class="header-icon" name="ios-person" color="light"></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+<ion-content>
+  <img src="assets/imgs/header-bg.png" class="header-bg">
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+  <div class="mapSearch">
+    <div class="sIcon">
+      <ion-icon name="search"></ion-icon>
+    </div>
+    <div class="sText">
+      <input type="text" dir="rtl" placeholder="البحث">
+    </div>
+  </div>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+  <div class="mapCtrls">
+    <div class="ctrlItem">
+      <img src="assets/imgs/icon-marker.png">
+    </div>
+    <div class="ctrlItem">
+      <img src="assets/imgs/icon-satalite.png">
+    </div>
+    <div class="ctrlItem">
+      <img src="assets/imgs/icon-geo.png">
+    </div>
+    <div class="ctrlItem">
+      <img src="assets/imgs/icon-route.png">
+    </div>
+  </div>
+
+  <div #gmap id="gmap"></div>
+
+  <div class="requestCtrls">
+    <div class="floatNav">
+        <ion-slides id="mainNav" loop="true" slidesPerView="4">
+
+            <ion-slide>
+                <img src="assets/imgs/ton.png">
+            </ion-slide>
+        
+            <ion-slide>
+                <img src="assets/imgs/ton.png">
+            </ion-slide>
+
+            <ion-slide>
+                <img src="assets/imgs/ton.png">
+            </ion-slide>
+
+            <ion-slide>
+                <img src="assets/imgs/ton.png">
+            </ion-slide>
+        
+          </ion-slides>
+          <ion-slides id="subNav" loop="true" slidesPerView="3">
+        
+            <ion-slide>
+                <img src="assets/imgs/cargo_truck.png">
+            </ion-slide>
+        
+            <ion-slide>
+                <img src="assets/imgs/service_truck.png">
+            </ion-slide>
+        
+            <ion-slide>
+                <img src="assets/imgs/drain_truck.png">
+            </ion-slide>
+        
+            <ion-slide>
+                <img src="assets/imgs/water_truck.png">
+            </ion-slide>
+        
+        </ion-slides>
+    </div>
+    <div class="rBtns" dir="rtl">
+      <div class="btn btnPrimary">اطلب الأن</div>
+      <div class="btn btnSecondary">اطلب لاحقاً</div>
+    </div>
+  </div>
 </ion-content>

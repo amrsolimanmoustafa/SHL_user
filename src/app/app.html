@@ -1,19 +1,135 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" #leftMenu side="left" type="push">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Menu</ion-title>
+      <ion-title></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
+      <ul class="sideMenu menuLeft">
+          <li>
+            <div class="miImg">
+              <img src="assets/imgs/contact_icon.png">
+            </div> 
+            <span class="miText">التواصل مع الإدارة</span>
+          </li>
+          <li>
+            <div class="miImg">   
+              <img src="assets/imgs/terms_icon.png">
+            </div> 
+            <span class="miText">الشروط و الأحكام</span>
+          </li>
+          <li>
+            <div class="miImg">   
+              <img src="assets/imgs/about_icon.png">
+            </div> 
+            <span class="miText">عن التطبيق</span>
+          </li>
+          <li>
+            <div class="miImg">   
+              <img src="assets/imgs/rates_icon.png">
+            </div> 
+            <span class="miText">اسعار الخدمات</span>
+          </li>
+          <li>
+            <div class="miImg">   
+              <img src="assets/imgs/join_icon.png">
+            </div> 
+            <span class="miText">انضم كمزود خدمة</span>
+          </li>
+          <li>
+            <div class="miImg">   
+              <img src="assets/imgs/feedback_icon.png">
+            </div> 
+            <span class="miText">شاركنا رأيك</span>
+          </li>
+          <li>
+            <div class="miImg">   
+              <img src="assets/imgs/alert_icon.png">
+            </div> 
+            <span class="miText">العروض</span>
+          </li>
+        </ul>
+        <div class="menuSocial">
+          <img src="assets/imgs/facebook.png">
+          <img src="assets/imgs/instagram.png">
+          <img src="assets/imgs/skype.png">
+          <img src="assets/imgs/twitter.png">
+        </div>
   </ion-content>
 
 </ion-menu>
 
+<ion-menu [content]="content" #rightMenu side="right" type="push">
+  <ion-header class="rmHeader">
+    <ion-toolbar>
+      <div class="rmUser">
+        <ion-icon class="rmIcon" name="ios-person"></ion-icon>
+        <span class="rmWelcome">الهلا مهند</span>
+      </div>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content id="rmContent">
+    <ul class="sideMenu">
+      <li>
+        <div class="miImg">   
+          <img src="assets/imgs/edit_profile_icon.png">
+        </div> 
+        <span class="miText">تعديل البيانات الشخصية</span>
+      </li>
+      <li>
+        <div class="miImg">   
+          <img src="assets/imgs/history_icon.png">
+        </div> 
+        <span class="miText">تاريخ الطلبات</span>
+      </li>
+      <li>
+        <div class="miImg">   
+          <img src="assets/imgs/icon-marker.png">
+        </div> 
+        <span class="miText">الأماكن المفضلة</span>
+      </li>
+      <li>
+        <div class="miImg">   
+          <img src="assets/imgs/alert_icon.png">
+        </div> 
+        <span class="miText">التنبيهات</span>
+        <div class="miCounter">1</div>
+      </li>
+      <li>
+        <div class="miImg">   
+          <img src="assets/imgs/wallet_icon.png">
+        </div> 
+        <span class="miText">المحفظة</span>
+        <div class="miAmount">$ 150</div>
+      </li>
+      <li>
+        <div class="miImg">   
+          <img src="assets/imgs/alert_icon.png">
+        </div> 
+        <span class="miText">النقاط</span>
+        <div class="miAmount">20</div>
+      </li>
+    </ul>
+    <div class="outContent">
+        <ul class="langList">
+          <li class="active">
+            <img src="assets/imgs/lang-ar.png">
+            <span>العربية</span>
+          </li>
+          <li>
+            <img src="assets/imgs/lang-en.png">
+            <span>English</span>
+          </li>
+          <li>
+            <img src="assets/imgs/lang-ardo.png">
+            <span>اردو</span>
+          </li>
+        </ul>
+      </div>
+  </ion-content>
+
+</ion-menu>
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav id="ion-nav" [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
