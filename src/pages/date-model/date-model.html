@@ -1,0 +1,12 @@
+
+<span class="x" (click) = " dismiss() "> X </span>
+
+<!-- <div>
+  <span ion-datepicker  [(value)]="localDate" [min]="localDate" clear class="ScheduleDate">
+    <span>{{localDate | date}} <ion-icon name="clipboard" item-left ></ion-icon> </span>
+  </span>
+ </div> -->
+<ion-item>
+  <ion-label>Start Date</ion-label>
+  <ion-datetime  min="2016" max="2025-10-31"  displayFormat="MMM DD YYYY" [(ngModel)]="start_date"></ion-datetime>
+</ion-item>
