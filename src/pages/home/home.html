@@ -15,76 +15,44 @@
 <ion-content>
   <img src="assets/imgs/header-bg.png" class="header-bg">
 
-  <div class="mapSearch">
-    <div class="sIcon">
-      <ion-icon name="search"></ion-icon>
-    </div>
-    <div class="sText">
-      <input type="text" dir="rtl" placeholder="البحث">
-    </div>
+  <div>
+     <ion-searchbar [(ngModel)]="autocomplete.query" placeholder ="" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
   </div>
+ <ion-list>
+    <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
+      {{ item.description }}
+    </ion-item>
+  </ion-list>
 
   <div class="mapCtrls">
     <div class="ctrlItem">
       <img src="assets/imgs/icon-marker.png">
     </div>
-    <div class="ctrlItem">
-      <img src="assets/imgs/icon-satalite.png">
-    </div>
-    <div class="ctrlItem">
-      <img src="assets/imgs/icon-geo.png">
-    </div>
-    <div class="ctrlItem">
-      <img src="assets/imgs/icon-route.png">
-    </div>
   </div>
 
-  <div #gmap id="gmap"></div>
+  <div #map id="map"></div>
 
   <div class="requestCtrls">
-    <div class="floatNav">
-        <ion-slides id="mainNav" loop="true" slidesPerView="4">
+    <div class="floatNav" *ngIf = "show">
+           <div class="mock">
 
-            <ion-slide>
-                <img src="assets/imgs/ton.png">
-            </ion-slide>
-        
-            <ion-slide>
-                <img src="assets/imgs/ton.png">
-            </ion-slide>
-
-            <ion-slide>
-                <img src="assets/imgs/ton.png">
-            </ion-slide>
-
-            <ion-slide>
-                <img src="assets/imgs/ton.png">
-            </ion-slide>
-        
-          </ion-slides>
-          <ion-slides id="subNav" loop="true" slidesPerView="3">
-        
-            <ion-slide>
-                <img src="assets/imgs/cargo_truck.png">
-            </ion-slide>
-        
-            <ion-slide>
-                <img src="assets/imgs/service_truck.png">
-            </ion-slide>
-        
-            <ion-slide>
-                <img src="assets/imgs/drain_truck.png">
-            </ion-slide>
-        
-            <ion-slide>
-                <img src="assets/imgs/water_truck.png">
-            </ion-slide>
-        
-        </ion-slides>
+             <ion-slides id="mainNav" loop="true" slidesPerView="2">
+                  <ion-slide *ngFor = " let service of subService " >
+                      <img class="subImg" (click)="order( service.services_id , service.sub_services_id)" src="{{ service['icone'] }}">
+                  </ion-slide>
+             </ion-slides>
+             <div>
+                  <ion-slides (ionSlideDidChange)="slideChanged()"  id="subNav" loop="true" slidesPerView="3">
+                      <ion-slide *ngFor = " let service of services ">
+                        <img (click)="serviceID(service['services_id'])" src="{{ service['icone'] }}" >
+                      </ion-slide>  
+                  </ion-slides>
+            </div>
+        </div>
     </div>
     <div class="rBtns" dir="rtl">
-      <div class="btn btnPrimary">اطلب الأن</div>
-      <div class="btn btnSecondary">اطلب لاحقاً</div>
+      <div class="btn btnPrimary"   (click)=" orderNW() " >اطلب الأن</div>
+      <div class="btn btnSecondary" (click)=" orderSchedule() " >اطلب لاحقاً</div>
     </div>
   </div>
 </ion-content>

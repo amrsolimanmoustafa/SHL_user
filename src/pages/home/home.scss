@@ -1,4 +1,7 @@
 page-home {
+agm-map.sebm-google-map-container {
+    height: 249px;
+}
     .show-page {
         transition: 0.3s left, 0.3s top !important;
     }
@@ -26,7 +29,7 @@ page-home {
         }
     }
 
-    #gmap {
+    #map {
         height: calc(100% - 20px);
         width: calc(100% - 20px);
         margin: 10px;

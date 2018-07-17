@@ -11,13 +11,13 @@
     <div class="fixedContent">
       <div class="inContent">
         <h4 class="hGray">تم ارسال كود التأكيد للرقم التالي</h4>
-        <h3 class="hBlue">+9661234568</h3>
+        <h3 class="hBlue">{{mobile}}</h3>
 
         <div class="phoneForm" dir="rtl">
-          <form>
+          <form #f="ngForm">
             <div class="phoneInputs">
               <div class="pNumber">
-                <input type="number" placeholder="كود التحقيق">
+                <input [(ngModel)]="user.v_code" name="phone" type="number" placeholder="كود التحقيق">
               </div>
             </div>
             <div class="formTerms">
@@ -27,8 +27,8 @@
               </label>
             </div>
             <div class="formConfirm">
-              <div class="btn btnPrimary btnWide">تغيير رقم الجوال</div>
-              <div class="btn btnPrimary btnWide">الدخول</div>
+              <div class="btn btnPrimary btnWide" (click)="changeMob()">تغيير رقم الجوال</div>
+              <div class="btn btnPrimary btnWide" (click)="enter()">الدخول</div>
             </div>
           </form>
         </div>
