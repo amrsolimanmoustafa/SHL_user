@@ -17,16 +17,19 @@ import { Geolocation } from '@ionic-native/geolocation';
 import {User} from '../model/UserModel';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
- import { DatePickerModule } from 'ion-datepicker';
- import { DateModelPage } from '../pages/date-model/date-model';
-
+import { DatePickerModule } from 'ion-datepicker';
+import { DateModelPage } from '../pages/date-model/date-model';
+import { ConfirmOrderPage } from '../pages/confirm-order/confirm-order';
+import { FCM } from '@ionic-native/fcm';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
     VerifyPage,
-    DateModelPage
+    DateModelPage,
+    ConfirmOrderPage
   ],
   imports: [
     BrowserModule,HttpClientModule, FormsModule,DatePickerModule,
@@ -44,7 +47,8 @@ import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
     HomePage,
     LoginPage,
     VerifyPage,
-    DateModelPage
+    DateModelPage,
+    ConfirmOrderPage
   ],
   providers: [
     StatusBar,
@@ -54,7 +58,10 @@ import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
     GlobalserviceProvider,
     Geolocation,
     NativeStorage,
-    User
+    User,
+    FCM,
+    Push
+
   ]
 })
 export class AppModule {}

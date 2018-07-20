@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, Events, MenuController } from 'ionic-angular';
+import { Nav, Platform,AlertController, Events, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -7,10 +7,12 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
 import { VerifyPage } from '../pages/verify/verify';
 import { Geolocation ,Geoposition} from '@ionic-native/geolocation';
-
+import { FCM , NotificationData} from '@ionic-native/fcm';
 import { Storage } from '@ionic/storage';
 import {User} from '../model/UserModel';
 import {GlobalserviceProvider} from '../providers/globalservice/globalservice';
+import { Push, PushObject, PushOptions } from '@ionic-native/push';
+
 declare var google: any;
 @Component({
   templateUrl: 'app.html'
@@ -27,9 +29,12 @@ public currentPos;
               public splashScreen: SplashScreen,
               public menuCtrl: MenuController,
               public events: Events,
+              private push: Push,
               private user1:User,
+              private alertCtrl:AlertController,
               public geolocation: Geolocation,
               public globalservice : GlobalserviceProvider,
+              private fcm: FCM,
               public storage: Storage) {
     this.initializeApp();
 
@@ -42,20 +47,153 @@ public currentPos;
 
   initializeApp() {
     this.platform.ready().then(() => {
+        this.fcm.subscribeToTopic('marketing');
 
+this.fcm.getToken().then(token => {
+  this.globalservice.tokenID = token;
+ console.log("token" , token);
+});
 
+/*this.fcm.onNotification().subscribe(data : NotificationData => {
+  console.log("data in push", data);
+  console.log("data in push2", JSON.stringify(data));
+  if(data.wasTapped){
+    console.log("Received in background");
+    console.log(JSON.stringify(data))
+  } else {
+    console.log("Received in foreground");
+    console.log(JSON.stringify(data))
+  };
+});*/
+  this.fcm.onNotification().subscribe(
+        (data:NotificationData)=>{
+          console.log("myData : ",data);
+           let confirmAlert = this.alertCtrl.create({
+          title: 'New Notification',
+          message: data.message,
+          buttons: [{
+            text: 'Ignore',
+            role: 'cancel'
+          }, {
+            text: 'View',
+            handler: () => {
+              //TODO: Your logic here
+            //  this.nav.push(DetailsPage, {message: data.message});
+            }
+          }]
+        });
+        confirmAlert.present();
+          if(data.wasTapped){
+             let confirmAlert = this.alertCtrl.create({
+          title: 'New Notification',
+          message: data.message,
+          buttons: [{
+            text: 'Ignore',
+            role: 'cancel'
+          }, {
+            text: 'View',
+            handler: () => {
+              //TODO: Your logic here
+            //  this.nav.push(DetailsPage, {message: data.message});
+            }
+          }]
+        });
+        confirmAlert.present();
+            //ocurre cuando nuestra app está en segundo plano y hacemos tap en la notificación que se muestra en el dispositivo
+            console.log("Received in background",JSON.stringify(data))
+          }else{
+            //ocurre cuando nuestra aplicación se encuentra en primer plano,
+            //puedes mostrar una alerta o un modal con los datos del mensaje
+              let confirmAlert = this.alertCtrl.create({
+          title: 'New Notification',
+          message: data.message,
+          buttons: [{
+            text: 'Ignore',
+            role: 'cancel'
+          }, {
+            text: 'View',
+            handler: () => {
+              //TODO: Your logic here
+            //  this.nav.push(DetailsPage, {message: data.message});
+            }
+          }]
+        });
+        confirmAlert.present();
+            console.log("Received in foreground",JSON.stringify(data))
+          }
+         },error=>{
+          console.error("Error in notification",error)
+         }
+      );
 
-/*this.geolocation.getCurrentPosition().then((resp) => {
-  console.log("resp",resp);
-  this.globalservice.lat = resp.coords.latitude;
-  this.globalservice.long = resp.coords.longitude;
-    let mylocation = new google.maps.LatLng(resp.coords.latitude,resp.coords.longitude);
-  });*/
+this.fcm.onTokenRefresh().subscribe(token => {
+   console.log("token" , token);
+});
+
+this.fcm.unsubscribeFromTopic('marketing');
+
+/*
+    const options: PushOptions = {
+      android: {
+        senderID: "869191053828"
+      }
+    };
+    const pushObject: PushObject = this.push.init(options);
+
+    pushObject.on('registration').subscribe((data: any) => {
+      console.log("device token ->", data.registrationId);
+
+      let alert = this.alertCtrl.create({
+                  title: 'device token',
+                  subTitle: data.registrationId,
+                  buttons: ['OK']
+                });
+                alert.present();
+
+    });
+
+    pushObject.on('notification').subscribe((data: any) => {
+      console.log('message', data.message);
+      //if user using app and push notification comes
+      if (data.additionalData.foreground) {
+        // if application open, show popup
+        let confirmAlert = this.alertCtrl.create({
+          title: 'New Notification',
+          message: data.message,
+          buttons: [{
+            text: 'Ignore',
+            role: 'cancel'
+          }, {
+            text: 'View',
+            handler: () => {
+              //TODO: Your logic here
+            //  this.nav.push(DetailsPage, {message: data.message});
+            }
+          }]
+        });
+        confirmAlert.present();
+      } else {
+        //if user NOT using app and push notification comes
+        //TODO: Your logic on click of push notification directly
+      //  this.nav.push(DetailsPage, {message: data.message})
+      let alert = this.alertCtrl.create({
+                  title: 'clicked on',
+                  subTitle: "you clicked on the notification!",
+                 buttons: ['OK']
+                });
+                alert.present();
+        console.log("Push notification clicked");
+      }
+    });
+
+    pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
+
+*/
       this.globalservice.getStoredValue("USERKey").then(user=>{
        console.log("user",user);
          if (user != null){
            console.log("Home page");
-this.rootPage = HomePage;
+            this.rootPage = HomePage;
          }else{
            console.log("login page");
            this.rootPage = LoginPage;
@@ -79,11 +217,4 @@ this.rootPage = HomePage;
      this.globalservice.storage.remove("USERKey");
     this.nav.setRoot(LoginPage);
   }
-  // menuClosed() {
-  //   document.querySelector('#ion-nav').className = '';
-  // }
-
-  // menuOpened() {
-  //   document.querySelector('#ion-nav').className = 'menuOpen';
-  // }
 }

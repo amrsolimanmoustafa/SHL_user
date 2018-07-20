@@ -16,7 +16,7 @@ import {User} from '../../model/UserModel';
   templateUrl: 'login.html',
 })
 export class LoginPage {
-user = {phone : '',token_id:'xx',lang_id:'' };
+user = {phone : '',token_id: this.globalservice.tokenID,lang_id:'' };
 public result;
   constructor(private user1:User,public globalservice:GlobalserviceProvider,public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -25,6 +25,8 @@ public result;
   }
 login(){
 	console.log(this.user);
+	console.log("tokenID",this.globalservice.tokenID);
+
 	this.globalservice.login(this.user).then(res =>{
 		this.result = res;
 		console.log(this.result);

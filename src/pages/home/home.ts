@@ -6,8 +6,8 @@ import { Geolocation ,Geoposition} from '@ionic-native/geolocation';
 import {GlobalserviceProvider} from '../../providers/globalservice/globalservice';
 import { Slides } from 'ionic-angular';
 import { DatePickerDirective } from 'ion-datepicker';
- import { DateModelPage } from '../date-model/date-model';
-
+import { DateModelPage } from '../date-model/date-model';
+import { ConfirmOrderPage } from '../confirm-order/confirm-order';
 declare var AdvancedGeolocation:any;
 
 declare var google: any;
@@ -30,7 +30,6 @@ export class HomePage {
   public city;
   public country;
   public text;
-  //public markersList:any;
   public map: any;
   public gmap: any;
   public autocompleteItems;
@@ -42,8 +41,9 @@ export class HomePage {
   public currentLng;
   public show : boolean = false;
   public subShow;
-  @ViewChild(Slides) slides: Slides;
+@ViewChild('subNav') slides: Slides;
   public userID;
+  public mySlider;
   public dateShow : boolean = false;
   constructor(public navCtrl: NavController,
               public menuCtrl: MenuController, 
@@ -108,6 +108,7 @@ load(){
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       let marker = new google.maps.Marker({
           map: this.map,
+          icon : 'assets/imgs/pin.png',
           draggable: true,
           animation: google.maps.Animation.DROP,
           position: latLng,
@@ -214,7 +215,8 @@ getAddress(lat,lng){
                    map: map,
                    draggable: true,
                    animation: google.maps.Animation.DROP,
-                   position: responses[0].geometry.location
+                   position: responses[0].geometry.location,
+                   icon : 'assets/imgs/pin.png'
                  });
                 google.maps.event.addListener(marker, 'dragend', (event) => {
                             me.zone.run(() => {
@@ -268,6 +270,7 @@ allService(){
   console.log("this.region",this.region);
   this.globalservice.getAllService(this.region).subscribe(res => {
         this.services = res;
+        console.log("this.services.state",this.services.state)
         if(this.services.state == "عفوا لايوجد خدمات فى هذة المنطقة فى الوقت الحالى"){
           console.log("no state");
           this.show = false;
@@ -290,38 +293,22 @@ serviceID(id){
 public orderRes;
 public svID;
 public SsvID;
-order(service_id,subService_id){
-  console.log(service_id,subService_id);
+public price;
+public icone;
+order(service_id,subService_id,price,icone){
+  console.log(service_id,subService_id,price,icone);
   this.svID = service_id;
   this.SsvID = subService_id;
-
+  this.price = price;
+  this.icone = icone;
 }
 orderNW(){
   console.log("this.SsvID",this.SsvID);
   console.log("svID",this.svID);
-  let data = {
-    "services_id":this.svID,
-    "sub_services_id":this.SsvID,
-    "user_id":this.userID,
-    "user_lat":this.lat,
-    "user_long":this.lng
+  console.log("svID",this.price);
+  console.log("svID",this.svID);
+  this.navCtrl.push(ConfirmOrderPage,{serviceID:this.svID,subID : this.SsvID , subPrice:this.price , SubIcon:this.icone , lat: this.lat,lng: this.lng})
 
-  }
-  this.globalservice.ordernw(data).then(res => {
-    console.log("res", res);
-    this.orderRes = res;
-    console.log(this.orderRes.state);
-    if (this.orderRes.state == "202"){
-      console.log("order complete");
-      this.presentToast("order completed wait for the provider , thanks")
-    
-    }else{
-      this.presentToast("please try again , thanks")
-      console.log("order not complete");
-    }
-  },(err)=>{
-    console.log(err);
-  })
 }
 public orderResLater;
 orderSchedule(){
@@ -358,15 +345,22 @@ orderSchedule(){
   //this.dateShow = true;
 }
   slideChanged() {
- //   console.log("obj" , obj);
-    let currentIndex = this.slides.getActiveIndex();
-  /*  if (currentIndex == 4){
-        this.subShow = true;
-        console.log("shreg sarf shi");
-    }else{
-      this.subShow = false;
-    }*/
+    let currentIndex = this.slides.realIndex +1;
     console.log('Current index is', currentIndex);
+    for (let i = 1 ; i <= currentIndex ; i++){
+        console.log("x : " , i );
+    if (i == 1) { 
+            this.svID = i;  
+    } else if (i==2) {
+            this.svID = i;
+    }else {
+            this.svID = i;
+    }
+        this.globalservice.getSub(i).subscribe(res => {
+        this.subService = res;
+        console.log("subService" , this.subService);
+    });
+    }
   }
   presentProfileModal() {
 
@@ -384,6 +378,11 @@ orderSchedule(){
 
   toast.present();
 }
+
+
+
+
+
 
 /*
  infowindow = new google.maps.InfoWindow();

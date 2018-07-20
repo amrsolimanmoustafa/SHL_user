@@ -16,7 +16,7 @@
   <img src="assets/imgs/header-bg.png" class="header-bg">
 
   <div>
-     <ion-searchbar [(ngModel)]="autocomplete.query" placeholder ="" [showCancelButton]="true" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
+     <ion-searchbar [(ngModel)]="autocomplete.query" placeholder ="" [showCancelButton]="false" (ionInput)="updateSearch()" (ionCancel)="dismiss()"></ion-searchbar>
   </div>
  <ion-list>
     <ion-item *ngFor="let item of autocompleteItems" tappable (click)="chooseItem(item)">
@@ -36,15 +36,15 @@
     <div class="floatNav" *ngIf = "show">
            <div class="mock">
 
-             <ion-slides id="mainNav" loop="true" slidesPerView="2">
+             <ion-slides #mainNav id="mainNav" loop="true" slidesPerView="2">
                   <ion-slide *ngFor = " let service of subService " >
-                      <img class="subImg" (click)="order( service.services_id , service.sub_services_id)" src="{{ service['icone'] }}">
+                      <img class="subImg" (click)="order( service.services_id , service.sub_services_id , service.price , service.icone)" src="{{ service['icone'] }}">
                   </ion-slide>
              </ion-slides>
              <div>
-                  <ion-slides (ionSlideDidChange)="slideChanged()"  id="subNav" loop="true" slidesPerView="3">
+                  <ion-slides #subNav (ionSlideDidChange)="slideChanged()"  id="subNav" loop="true" slidesPerView="3">
                       <ion-slide *ngFor = " let service of services ">
-                        <img (click)="serviceID(service['services_id'])" src="{{ service['icone'] }}" >
+                        <img (click)="serviceID()" src="{{ service['icone'] }}" >
                       </ion-slide>  
                   </ion-slides>
             </div>

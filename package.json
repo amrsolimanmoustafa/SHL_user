@@ -23,6 +23,7 @@
         "@angular/platform-browser": "5.2.11",
         "@angular/platform-browser-dynamic": "5.2.11",
         "@ionic-native/core": "4.7.0",
+        "@ionic-native/fcm": "^4.9.2",
         "@ionic-native/geolocation": "^4.9.2",
         "@ionic-native/native-storage": "^4.9.0",
         "@ionic-native/splash-screen": "4.7.0",
@@ -61,6 +62,7 @@
             "cordova-plugin-ionic-webview": {},
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-nativestorage": {},
+            "cordova-plugin-fcm": {},
             "cordova-plugin-geolocation": {
                 "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
             },

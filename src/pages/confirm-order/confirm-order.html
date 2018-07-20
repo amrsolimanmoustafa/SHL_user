@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle="left" left>
+      <ion-icon class="header-icon" name="md-cog" color="light"></ion-icon>
+    </button>
+    <ion-title>
+      <img src="assets/imgs/header-logo.png" width="40">
+    </ion-title>
+    <button ion-button menuToggle="right" right>
+      <ion-icon class="header-icon" name="ios-person" color="light"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <img src="assets/imgs/header-bg.png" class="header-bg">
+  <div class="ctrlItem">
+      <img src="assets/imgs/icon-marker.png">
+    </div>
+  <div #map id="map"> </div>
+<!--   	  	<div class="subImage">
+  			<img src="{{subServiceIcon}}" >
+  	</div>
+  </div>
+
+    <div class="rBtns" dir="rtl">
+      <div class="btn btnPrimary"   (click)=" orderNW() " > <span class="price">{{servicePrice}} </span>   اطلب الأن</div>
+    </div> -->
+     <div class="requestCtrls">
+    <div class="floatNav">
+    </div>
+    <div class="rBtns" dir="rtl">
+      <div class="btn btnPrimary"   (click)=" orderNW() " > <span class="price">{{servicePrice}} </span>   اطلب الأن</div>
+    </div>
+  </div>
+</ion-content>

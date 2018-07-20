@@ -30,7 +30,7 @@ export class GlobalserviceProvider {
   public lat;
   public long;
   public currentPos;
-
+  public tokenID;
   constructor(public storage: Storage,public http: HttpClient,public geolocation:Geolocation) {
     console.log('Hello GlobalserviceProvider Provider');
     console.log('Hello ');
@@ -99,6 +99,7 @@ active(data){
 return promise;
 }
 ordernw(data){
+  console.log("sdhasdjsda");
   let promise=new Promise((resolve,reject)=>{
     
     this.http.post(this.orderNW_url,data).subscribe(res=>{

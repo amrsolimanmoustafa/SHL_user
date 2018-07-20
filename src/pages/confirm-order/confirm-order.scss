@@ -1,32 +1,8 @@
-page-home {
-ion-searchbar {
-            position: absolute;
-            z-index: 10002;
-            width: calc(100% - 20px);
-            left: 10px;
-            top: 10px;
-            background: transparent !important;
-            .searchbar-input {
-                box-shadow: 1px 2px 5px 0 rgba(0,0,0,0.33);
-            }
-    }
-
-    ion-list {
-        position: absolute;
-        z-index: 10001;
-        width: calc(100% - 40px);
-        left: 20px;
-        &.list-ios {
-            top: 35px !important;
-        }
-        &.list-md {
-            top: 60px !important;
-        }
-    }
-agm-map.sebm-google-map-container {
-    height: 249px;
+page-confirm-order {
+span.price {
+    border: ridge;
 }
-    .show-page {
+ .show-page {
         transition: 0.3s left, 0.3s top !important;
     }
     .menuLeftToggled {
@@ -186,6 +162,10 @@ agm-map.sebm-google-map-container {
             width: 100%;
             padding-bottom: 10px;
             text-align: center;
+             .btm{
+        width: 169px !important;
         }
+        }
+
     }
 }
